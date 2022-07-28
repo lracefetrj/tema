@@ -4,15 +4,15 @@ import gurobipy as gp
 from gurobipy import GRB
 
 try:
-    B = 2
-    T = 5
+    B = 1
+    T = 3
     P = 3
     Vmax = 4
 
     C = {}
     C[0] = 0.5
-    C[1] = 1.2
-    C[2] = 0.8
+    C[1] = 0.5
+    C[2] = 0.5
 
     DS = {}
     DS[0] = 3
@@ -33,13 +33,13 @@ try:
     mc[1] = 24
 
     GF = {}
-    GF[0] = 100
-    GF[1] = 300
-    GF[2] = 200
+    GF[0] = 500
+    GF[1] = 100
+    GF[2] = 100
 
     gf = {}
-    gf[0] = 1000
-    gf[1] = 1300
+    gf[0] = 2000
+    gf[1] = 3000
 
 
     Cmax = 10
