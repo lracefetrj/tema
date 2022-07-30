@@ -1,202 +1,156 @@
 #!/usr/bin/env python3.7
-
 import gurobipy as gp
 from gurobipy import GRB
 
-try:
 
+def solucionar(P, GF, MC, DS, C, B, gf, mc, ds, v, Cmax, Vmax, Tmax, alpha1, alpha2, arqmodel):
 
-    P = 3
+    try:
 
-    C = {}
-    C[0] = 0.3
-    C[1] = 0.35
-    C[2] = 0.32
+        # Create a new model
+        m = gp.Model("graspcc")
 
-    DS = {}
-    DS[0] = 4
-    DS[1] = 0.7
-    DS[2] = 3
+        # Create variables
+        x_pitb = {}
+        for p in range(P):
+            for i in range(Vmax):
+                for t in range(Tmax):
+                    for b in range(B):
+                        x_pitb[p,i,t,b] = m.addVar(vtype=gp.GRB.BINARY, name='x_' + str(p) + '_' + str(i) + '_' + str(t) + '_' + str(b) )
 
-    MC = {}
-    MC[0] = 3.5
-    MC[1] = 3.5
-    MC[2] = 8
+        z = m.addVar(vtype=gp.GRB.INTEGER, name='z')
 
-    GF = {}
-    GF[0] = (1.3 * 3600)
-    GF[1] = (1.5 * 3600)
-    GF[2] = (1.2 * 3600)
+        # Set objective
+        objective = alpha1 * gp.quicksum(
+                        x_pitb[p,i,t,b] * C[p] for b in range( B) for t in range(Tmax) for i in range( Vmax) for p in range( P)
+                    ) + alpha2 * z
 
-    B = 1
-    
-    ds = {}
-    ds[0] = 41
-    ds[1] = 10
+        m.ModelSense = gp.GRB.MINIMIZE
+        m.setObjective(objective)
 
-    mc = {}
-    mc[0] = 16
-    mc[1] = 24
-
-    gf = {}
-    gf[0] = 5067532
-    gf[1] = 3000
-
-    v = {}
-    v[0] = 10
-    v[1] = 10
-
-    Cmax = 1000
-    Tmax = 120
-    Vmax = 11
-
-    alpha1 = 0.5
-    alpha2 = 0.5
-
-    # Create a new model
-    m = gp.Model("graspcc")
-
-    # Create variables
-    x_pitb = {}
-    for p in range(P):
-        for i in range(Vmax):
-            for t in range(Tmax):
-                for b in range(B):
-                    x_pitb[p,i,t,b] = m.addVar(vtype=gp.GRB.BINARY, name='x_' + str(p) + '_' + str(i) + '_' + str(t) + '_' + str(b) )
-
-    z = m.addVar(vtype=gp.GRB.INTEGER, name='z')
-
-    # Set objective
-    objective = alpha1 * gp.quicksum(
-                    x_pitb[p,i,t,b] * C[p] for b in range( B) for t in range(Tmax) for i in range( Vmax) for p in range( P)
-                ) + alpha2 * z
-
-    m.ModelSense = gp.GRB.MINIMIZE
-    m.setObjective(objective)
-
-    # Add constraint: Cost
-    m.addConstr(
-            gp.quicksum(
-                x_pitb[p,i,t,b] * C[p] for b in range(B) for t in range(Tmax) for i in range(Vmax) for p in range(P)
-            ) 
-            <= 
-            Cmax, "Cost")
-
-    # Add constraint: Disk
-    for pp in range(P):
-        for ii in range(Vmax):
-            for t in range(Tmax):
-                for b in range(B):
-                    m.addConstr(
-                        gp.quicksum(
-                            DS[p] * x_pitb[p,i,t,b] for p in range(P) for i in range(Vmax) 
-                        )
-                        >= 
-                        ds[b] * x_pitb[pp,ii,t,b]
-                        , "Disk")
-
-#    # Add constraint: Memory
-#    for t in range(Tmax):
-#        for b in range(B):
-#            m.addConstr(
-#                gp.quicksum(
-#                    x_pitb[p,i,t,b] * MC[p] for i in range(Vmax) for p in range(P)
-#                )
-#                    >= 
-#                gp.quicksum(
-#                    x_pitb[pp,ii,t,b] * mc[b] for ii in range(Vmax) for pp in range(P)
-#                ), "Memory")
-
-    # Add constraint: GFlops
-    for b in range(B):
+        # Add constraint: C27
         m.addConstr(
-            gp.quicksum(
-                x_pitb[p,i,t,b] * GF[p] for p in range(P) for i in range(Vmax) for t in range(Tmax)
-            )
-            >= 
-            gf[b], "GFlops")
+                gp.quicksum(
+                    x_pitb[p,i,t,b] * C[p] for b in range(B) for t in range(Tmax) for i in range(Vmax) for p in range(P)
+                ) 
+                <= 
+                Cmax, "C27")
 
-    # Add constraint: Sucessor
-#    for p in range(P):
-#        for i in range(Vmax):
-#            for t in range(Tmax):
-#                for b in range(B):
-#                    m.addConstr(
-#                        gp.quicksum(
-#                            x_pitb[p,ii,t,bb] for ii in range(i) for bb in range(b, B)
-#                        )
-#                        <= 
-#                        (1 - x_pitb[p,i,t,b]) 
-#                        , "Sucessor")
+        # Add constraint: C28
+        for pp in range(P):
+            for ii in range(Vmax):
+                for t in range(Tmax):
+                    for b in range(B):
+                        m.addConstr(
+                            gp.quicksum(
+                                DS[p] * x_pitb[p,i,t,b] for p in range(P) for i in range(Vmax) 
+                            )
+                            >= 
+                            ds[b] * x_pitb[pp,ii,t,b]
+                            , "C28")
 
-#    # Add constraint: PrecursorBucket
-#    for p in range(P):
-#        for i in range(Vmax-1):
-#            for t in range(Tmax):
-#                    m.addConstr(
-#                        gp.quicksum( x_pitb[p,i+1,t,b] for b in range(B))
-#                        <= 
-#                        gp.quicksum( x_pitb[p,i,t,b] for b in range(B))
-#                        , "PrecursorBucket")
+        # Add constraint: C29
+        for pp in range(P):
+            for ii in range(Vmax):
+                for t in range(Tmax):
+                    for b in range(B):
+                        m.addConstr(
+                            gp.quicksum(
+                                MC[p] * x_pitb[p,i,t,b] for p in range(P) for i in range(Vmax) 
+                            )
+                            >= 
+                            mc[b] * x_pitb[pp,ii,t,b]
+                            , "C29")
 
-    # Add constraint: MaxVM
-    for t in range(Tmax):
-        m.addConstr(
-            gp.quicksum(
-                x_pitb[p,i,t,b] for p in range(P) for i in range(Vmax) for b in range(B)
-            )
-            <= 
-            Vmax, "MaxVM")
+        # Add constraint: C30
+        for b in range(B):
+            m.addConstr(
+                gp.quicksum(
+                    x_pitb[p,i,t,b] * GF[p] for p in range(P) for i in range(Vmax) for t in range(Tmax)
+                )
+                >= 
+                gf[b], "C30")
 
-    # Add constraint: MaxVMBuckect
-#    for b in range(B):
-#        for t in range(Tmax):
-#            m.addConstr(
-#                gp.quicksum(
-#                    x_pitb[p,i,t,b] for i in range(i) for p in range(P)
-#                )
-#                <= 
-#                v[b]
-#                , "MaxVMBucket")
+        # Add constraint: C31
+        for p in range(P):
+            for i in range(Vmax):
+                for t in range(Tmax):
+                    for b in range(B):
+                        m.addConstr(
+                            gp.quicksum(
+                                x_pitb[p,ii,t,bb] for ii in range(i) for bb in range((b+1), B)
+                            )
+                            <= 
+                            (1 - x_pitb[p,i,t,b]) 
+                            , "C31")
 
-    # Add constraint: LastVMBucket
-    for p in range(P):
-        for i in range(Vmax):
+        # Add constraint: C32
+        for p in range(P):
+            for i in range(Vmax-1):
+                for t in range(Tmax):
+                        m.addConstr(
+                            gp.quicksum( x_pitb[p,i+1,t,b] for b in range(B))
+                            <= 
+                            gp.quicksum( x_pitb[p,i,t,b] for b in range(B))
+                            , "C32")
+
+        # Add constraint: C33
+        for t in range(Tmax):
+            m.addConstr(
+                gp.quicksum(
+                    x_pitb[p,i,t,b] for p in range(P) for i in range(Vmax) for b in range(B)
+                )
+                <= 
+                Vmax, "C33")
+
+        # Add constraint: C34
+        for b in range(B):
             for t in range(Tmax):
                 m.addConstr(
-                    z >= t * 
                     gp.quicksum(
-                        x_pitb[p,i,t,b] for b in range(B)
+                        x_pitb[p,i,t,b] for p in range(P) for i in range(Vmax) 
                     )
-                    , "LastVMBucket")
+                    <= v[b]
+                    , "C34")
 
-    # Add constraint: Precursor
-    for p in range(P):
-        for i in range(Vmax-1):
-            for t in range(Tmax):
-                for b in range(B):
+        # Add constraint: C35
+        for p in range(P):
+            for i in range(Vmax):
+                for t in range(Tmax):
                     m.addConstr(
-                        x_pitb[p,i+1,t,b] 
-                        <= 
-                        x_pitb[p,i,t,b] 
-                        , "Precursor")
+                        z >= t * 
+                        gp.quicksum(
+                            x_pitb[p,i,t,b] for b in range(B)
+                        )
+                        , "C35")
 
-    # Optimize model
-    m.update()
-    m.optimize()
-    #m.computeIIS()
-    #m.write('model.ilp')
+        # Add constraint: C36
+        for p in range(P):
+            for i in range(Vmax):
+                for t in range(Tmax-1):
+                    for b in range(B):
+                        m.addConstr(
+                            x_pitb[p,i,(t+1),b] 
+                            <= 
+                            x_pitb[p,i,t,b] 
+                            , "C36")
 
-    m.write('model.sol') 
+        # Optimize model
+        m.update()
+        m.optimize()
+        #m.computeIIS()
+        #m.write('model.ilp')
 
-#    for v in m.getVars():
-#        if v.X > 0:
-#            print('%s %s' % (v.VarName, v.X))
+        m.write(arqmodel + '.sol') 
 
-    print('Obj: %g' % m.ObjVal)
-#
-except gp.GurobiError as e:
-    print('Error code ' + str(e.errno) + ': ' + str(e))
+        cost = gp.quicksum(
+                    x_pitb[p,i,t,b] * C[p] for b in range(B) for t in range(Tmax) for i in range(Vmax) for p in range(P)
+                )
 
-except AttributeError:
-    print('Encountered an attribute error')
+        print('Custo: %g' % (cost.getValue()))
+
+    except gp.GurobiError as e:
+        print('Error code ' + str(e.errno) + ': ' + str(e))
+
+    except AttributeError:
+        print('Encountered an attribute error')
