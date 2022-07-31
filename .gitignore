@@ -4,4 +4,5 @@
 *.code-workspace
 *.pyc
 *.sol
+*_c++
 __pycache__

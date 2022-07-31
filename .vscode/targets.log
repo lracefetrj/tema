@@ -1,0 +1,296 @@
+make all --print-data-base --no-builtin-variables --no-builtin-rules --question
+# GNU Make 4.2.1
+# Built for x86_64-pc-linux-gnu
+# Copyright (C) 1988-2016 Free Software Foundation, Inc.
+# License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+# This is free software: you are free to change and redistribute it.
+# There is NO WARRANTY, to the extent permitted by law.
+
+# Make data base, printed on Sun Jul 31 18:49:52 2022
+
+# Variables
+
+# automatic
+<D = $(patsubst %/,%,$(dir $<))
+# automatic
+?F = $(notdir $?)
+# default
+.SHELLFLAGS := -c
+# environment
+XDG_SESSION_CLASS = user
+# environment
+XDG_SESSION_TYPE = tty
+# environment
+VSCODE_LOG_NATIVE = false
+# automatic
+?D = $(patsubst %/,%,$(dir $?))
+# automatic
+@D = $(patsubst %/,%,$(dir $@))
+# automatic
+@F = $(notdir $@)
+# default
+MAKE_VERSION := 4.2.1
+# makefile
+CURDIR := /home/lalvarenga/dev/tema
+# makefile
+SHELL = /bin/sh
+# environment
+GUROBI_HOME = /home/lalvarenga/gurobi952/linux64
+# environment
+VSCODE_NLS_CONFIG = {"locale":"en","availableLanguages":{}}
+# environment
+_ = /usr/lib/code-server/lib/node
+# makefile (from 'Makefile', line 4)
+TWOUP = ..
+# makefile (from 'Makefile', line 1)
+MAKEFILE_LIST :=  Makefile
+# 'override' directive
+GNUMAKEFLAGS := 
+# environment
+MAKELEVEL := 0
+# environment
+XDG_DATA_DIRS = /usr/local/share:/usr/share:/var/lib/snapd/desktop
+# environment
+DBUS_SESSION_BUS_ADDRESS = unix:path=/run/user/1009/bus
+# environment
+VSCODE_VERBOSE_LOGGING = true
+# environment
+LC_CTYPE = pt_BR.UTF-8
+# environment
+VSCODE_PROXY_URI = http://127.0.0.1:9041/proxy/{{port}}
+# environment
+LESSOPEN = | /usr/bin/lesspipe %s
+# environment
+LC_NAME = pt_BR.UTF-8
+# makefile (from 'Makefile', line 7)
+CPP = g++
+# environment
+VSCODE_CWD = /home/lalvarenga
+# environment
+SSH_CONNECTION = 186.223.169.213 2061 200.9.149.134 49186
+ 
+# environment
+PATH = /usr/lib/code-server/lib/vscode/bin/remote-cli:/home/lalvarenga/.local/bin:/home/lalvarenga/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/data/mpj-v0_44/bin:/home/lalvarenga/gurobi952/linux64/bin:/data/mpj-v0_44/bin:/home/lalvarenga/gurobi952/linux64/bin
+# makefile (from 'Makefile', line 8)
+CARGS = -m64 -O
+# environment
+SSH_TTY = /dev/pts/0
+# environment
+XDG_RUNTIME_DIR = /run/user/1009
+# environment
+MPJ_HOME = /data/mpj-v0_44
+# environment
+VSCODE_LOG_STACK = false
+# environment
+LC_NUMERIC = pt_BR.UTF-8
+# environment
+VSCODE_IPC_HOOK_CLI = /run/user/1009/vscode-ipc-6cc3062b-024b-4889-b529-e9cc430c34d6.sock
+# default
+.FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell archives jobserver output-sync check-symlink load
+# environment
+LS_COLORS = rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:
+# environment
+NODE_OPTIONS = --max-old-space-size=2048 
+# automatic
+%F = $(notdir $%)
+# environment
+VSCODE_PIPE_LOGGING = true
+# environment
+PWD = /home/lalvarenga/dev/tema
+# default
+.LOADED := 
+# automatic
+*D = $(patsubst %/,%,$(dir $*))
+# environment
+VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
+# environment
+HOME = /home/lalvarenga
+# environment
+LD_LIBRARY_PATH = /usr/include/x86_64-linux-gnu/mpich:/home/lalvarenga/gurobi952/linux64/lib
+# environment
+LESSCLOSE = /usr/bin/lesspipe %s %s
+# makefile (from 'Makefile', line 9)
+CPPLIB = -L/home/lalvarenga/gurobi952/linux64/lib -lgurobi_c++cpl -lgurobi95
+# environment
+LOGNAME = lalvarenga
+# environment
+APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = 1
+# automatic
++F = $(notdir $+)
+# makefile (from 'Makefile', line 5)
+KEEPTU = ../..
+# environment
+VSCODE_HANDLES_UNCAUGHT_ERRORS = true
+# automatic
+^D = $(patsubst %/,%,$(dir $^))
+# environment
+LC_TIME = pt_BR.UTF-8
+# default
+MAKE = $(MAKE_COMMAND)
+# default
+MAKECMDGOALS := all
+# environment
+SHLVL = 1
+# environment
+XDG_SESSION_ID = 744
+# environment
+USER = lalvarenga
+# environment
+LC_MONETARY = pt_BR.UTF-8
+# makefile
+.DEFAULT_GOAL := all
+# environment
+CODE_SERVER_PARENT_PID = 104592
+# automatic
+%D = $(patsubst %/,%,$(dir $%))
+# environment
+LC_TELEPHONE = pt_BR.UTF-8
+# default
+MAKE_COMMAND := make
+# makefile (from 'Makefile', line 6)
+INC = /home/lalvarenga/gurobi952/linux64/include/
+# default
+.VARIABLES := 
+# automatic
+*F = $(notdir $*)
+# makefile
+MAKEFLAGS = pqrR
+# environment
+MFLAGS = -pqrR
+# environment
+SSH_CLIENT = 186.223.169.213 2061 49186
+# automatic
++D = $(patsubst %/,%,$(dir $+))
+# environment
+LC_PAPER = pt_BR.UTF-8
+# environment
+LC_IDENTIFICATION = pt_BR.UTF-8
+# makefile (from 'Makefile', line 3)
+PLATFORM = linux64
+# default
+MAKEFILES := 
+# automatic
+<F = $(notdir $<)
+# environment
+LC_MEASUREMENT = pt_BR.UTF-8
+# environment
+GRB_LICENSE_FILE = /home/lalvarenga/gurobi952/linux64/gurobi.lic
+# environment
+LC_ALL = C
+# automatic
+^F = $(notdir $^)
+# default
+SUFFIXES := 
+# default
+.INCLUDE_DIRS = /usr/include /usr/local/include /usr/include
+# environment
+VSCODE_INJECT_NODE_MODULE_LOOKUP_PATH = /usr/lib/code-server/lib/vscode/remote/node_modules
+# default
+.RECIPEPREFIX := 
+# environment
+LC_ADDRESS = pt_BR.UTF-8
+# default
+MAKE_HOST := x86_64-pc-linux-gnu
+# environment
+LANG = C
+# environment
+TERM = xterm-256color
+# environment
+VSCODE_EXTHOST_WILL_SEND_SOCKET = true
+# environment
+MOTD_SHOWN = pam
+# variable set hash-table stats:
+# Load=94/1024=9%, Rehash=0, Collisions=14/119=12%
+
+# Pattern-specific Variable Values
+
+# No pattern-specific variable values.
+
+# Directories
+
+# . (device 2049, inode 110757463): 14 files, no impossibilities.
+
+# 14 files, no impossibilities in 1 directories.
+
+# Implicit Rules
+
+# No implicit rules.
+
+# Files
+
+all: ngraspcc_c++
+#  Command line target.
+#  Implicit rule search has been done.
+#  File does not exist.
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+Makefile:
+#  Implicit rule search has been done.
+#  Last modified 2022-07-31 18:49:49.811361956
+#  File has been updated.
+#  Successfully updated.
+
+run_ngraspcc: ngraspcc_c++
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 21):
+	./ngraspcc_c++
+
+# Not a target:
+ngraspcc.cpp:
+#  Implicit rule search has been done.
+#  Last modified 2022-07-31 18:25:44.423625193
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+.DEFAULT:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+run_cpp: run_ngraspcc
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+run: run_cpp
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+ngraspcc_c++: ngraspcc.cpp
+#  Implicit rule search has not been done.
+#  Last modified 2022-07-31 18:39:39.841926175
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 18):
+	$(CPP) $(CARGS) -o $@ $< -I$(INC) $(CPPLIB) -lm
+
+clean:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 24):
+	rm -rf *.o *_c++ *.log *.sol
+
+# files hash-table stats:
+# Load=10/1024=1%, Rehash=0, Collisions=0/29=0%
+# VPATH Search Paths
+
+# No 'vpath' search paths.
+
+# No general ('VPATH' variable) search path.
+
+# strcache buffers: 1 (0) / strings = 23 / storage = 258 B / avg = 11 B
+# current buf: size = 8162 B / used = 258 B / count = 23 / avg = 11 B
+
+# strcache performance: lookups = 40 / hit rate = 42%
+# hash-table stats:
+# Load=23/8192=0%, Rehash=0, Collisions=1/40=2%
+# Finished Make data base on Sun Jul 31 18:49:52 2022
+
+ 

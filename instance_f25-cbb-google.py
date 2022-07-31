@@ -21,25 +21,25 @@ C = [0.276, 0.552, 1.104, 0.240, 0.480, 0.960, 0.318, 0.636, 1.272, 0.254, 0.508
 
 # - the client requirements:
 # the maximum cost that the client can pay
-Cmax = 192
+Cmax = 1950
 
 # Buckets
 B = 1
 
 # the minimum Gflops that the client's aplication need by bucket
-gf = [28748390.4]
+gf = [230342400]
 
 # the total RAM memory (GBs) that the client's aplication need by bucket
-mc = [64]
+mc = [213.5]
 
 # the maximum disk capacity (GBs) that the client's aplication need by bucket
-ds = [600]
+ds = [142.3]
 
 # the maximum package number by bucket
 v = [20]
 
 # the maximum time (per time unit:hour)
-Tmax = 4
+Tmax = 60
 
 # the maximum package number that it can be utilized
 Vmax = 20

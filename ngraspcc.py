@@ -29,12 +29,11 @@ def solucionar(P, GF, MC, DS, C, B, gf, mc, ds, v, Cmax, Vmax, Tmax, alpha1, alp
         m.setObjective(objective)
 
         # Add constraint: C27
-        m.addConstr(
-                gp.quicksum(
-                    x_pitb[p,i,t,b] * C[p] for b in range(B) for t in range(Tmax) for i in range(Vmax) for p in range(P)
-                ) 
-                <= 
-                Cmax, "C27")
+        C27 = gp.quicksum(
+            x_pitb[p,i,t,b] * C[p] for b in range(B) for t in range(Tmax) for i in range(Vmax) for p in range(P)
+        )
+
+        m.addConstr(C27 <= Cmax, "C27")
 
         # Add constraint: C28
         for pp in range(P):
@@ -143,11 +142,7 @@ def solucionar(P, GF, MC, DS, C, B, gf, mc, ds, v, Cmax, Vmax, Tmax, alpha1, alp
 
         m.write(arqmodel + '.sol') 
 
-        cost = gp.quicksum(
-                    x_pitb[p,i,t,b] * C[p] for b in range(B) for t in range(Tmax) for i in range(Vmax) for p in range(P)
-                )
-
-        print('Custo: %g' % (cost.getValue()))
+        print('Custo: %g' % (C27.getValue()))
 
     except gp.GurobiError as e:
         print('Error code ' + str(e.errno) + ': ' + str(e))
