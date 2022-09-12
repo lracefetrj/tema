@@ -1,5 +1,5 @@
-make --dry-run --keep-going --print-directory
+make --dry-run --always-make --keep-going --print-directory
 make: Entering directory '/home/lalvarenga/dev/tema'
-make: Nothing to be done for 'all'.
+g++ -m64 -O -o ngraspcc_c++ ngraspcc.cpp -I/home/lalvarenga/gurobi952/linux64/include/ -L/home/lalvarenga/gurobi952/linux64/lib -lgurobi_c++cpl -lgurobi95 -lm
 make: Leaving directory '/home/lalvarenga/dev/tema'
  
