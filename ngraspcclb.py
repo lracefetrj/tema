@@ -6,7 +6,7 @@ from gurobipy import GRB
 def solucionar(P, GF, MC, DS, C, B, L, gf, mc, ds, v, Cmax, Vmax, Tmax, alpha1, alpha2, arqmodel):
 
     try:
-        M = 1
+        M = 1000000
 
         # Create a new model
         m = gp.Model("graspcclb")
@@ -93,7 +93,7 @@ def solucionar(P, GF, MC, DS, C, B, L, gf, mc, ds, v, Cmax, Vmax, Tmax, alpha1, 
                             j += 1
                             m.addConstr(
                                 gp.quicksum(
-                                    x_pitbl[p,ii,t,bb,l] for ii in range(i) for bb in range((b+1), B[l])
+                                    x_pitbl[p,ii,tt,bb,l] for ii in range(i) for tt in range(1, t+1) for bb in range((b+1), B[l])
                                 )
                                 <= 
                                 (1 - x_pitbl[p,i,t,b,l]) * M
@@ -122,7 +122,7 @@ def solucionar(P, GF, MC, DS, C, B, L, gf, mc, ds, v, Cmax, Vmax, Tmax, alpha1, 
                            j += 1
                            m.addConstr(
                                gp.quicksum(
-                                   x_pitbl[pp,ii,tt,bb,ll] for pp in range(P) for ii in range(Vmax) for tt in range(1,t+1) for ll in range(l+1, L) for bb in range(B[ll]) 
+                                   x_pitbl[pp,ii,tt,bb,ll] for pp in range(P) for ii in range(Vmax) for tt in range(1, t+1) for ll in range(l+1, L) for bb in range(B[ll]) 
                                )
                                <= 
                                (1 - x_pitbl[p,i,t,b,l]) * M

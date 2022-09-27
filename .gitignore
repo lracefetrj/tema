@@ -4,5 +4,8 @@
 *.code-workspace
 *.pyc
 *.sol
+*.lp
+*.ilp
+*.mps
 *_c++
 __pycache__

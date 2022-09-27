@@ -41,21 +41,21 @@ mc[1,1] = 20
 
 gf = {} # GFLOPS {layer, bucket}
 gf[0,0] = 220
-gf[0,1] = 220
-gf[1,0] = 220
+gf[0,1] = 320
+gf[1,0] = 420
 gf[1,1] = 220
 
 v = {} # VM {layer, bucket}
-v[0,0] = 2
-v[0,1] = 2
-v[1,0] = 2
-v[1,1] = 2
+v[0,0] = 6
+v[0,1] = 6
+v[1,0] = 6
+v[1,1] = 6
 
-Cmax = 20 # Max Cost
-Tmax = 10 # Max Time
-Vmax = 2 # Max VM
+Cmax = 50 # Max Cost
+Tmax = 5 # Max Time
+Vmax = 6 # Max VM
 
 alpha1 = 0.5
-alpha2 = 0.5
+alpha2 = (1 - alpha1) 
 
 model.solucionar(P, GF, MC, DS, C, B, L, gf, mc, ds, v, Cmax, Vmax, (Tmax+1), alpha1, alpha2, __file__)
