@@ -43,11 +43,11 @@ v = {} # VM {layer, bucket}
 v[0,0] = 2
 v[1,0] = 10
 
-Cmax = 5 # Max Cost
-Tmax = 5 # Max Time
+Cmax = 10 # Max Cost
+Tmax = 10 # Max Time
 Vmax = 2 # Max VM
 
-alpha1 = 0.9
-alpha2 = 0.1
+alpha1 = 0.5
+alpha2 = 0.5
 
 model.solucionar(P, GF, MC, DS, C, B, L, gf, mc, ds, v, Cmax, Vmax, (Tmax+1), alpha1, alpha2, __file__)
